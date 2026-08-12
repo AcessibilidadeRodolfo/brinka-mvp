@@ -77,13 +77,13 @@ As capturas de tela correspondentes a cada execução devem ser adicionadas na p
 
 ## Checklist de conformidade (Seção 5.1)
 
-- [ ] Imagens significativas com `alt` descritivo; decorativas com `alt=""`
-- [ ] Contraste ≥ 4.5:1 (texto normal)
-- [ ] Navegação completa por teclado (carrinho e checkout sem mouse)
-- [ ] Foco visível em todos os elementos interativos
-- [ ] HTML semântico (`header`, `nav`, `main`, `button`, `label`)
-- [ ] Formulários com labels associados e erros acessíveis
-- [ ] Nenhuma informação transmitida só por cor
-- [ ] Zoom até 200% sem quebrar layout
-- [ ] `lang="pt-BR"` no `html`
-- [ ] Lighthouse Acessibilidade ≥ 90 (mediana das 3 execuções)
+- [x] Imagens significativas com `alt` descritivo; decorativas com `alt=""`
+- [x] Contraste ≥ 4.5:1 (texto normal)
+- [x] Navegação completa por teclado (carrinho e checkout sem mouse)
+- [x] Foco visível em todos os elementos interativos
+- [x] HTML semântico (`header`, `nav`, `main`, `button`, `label`)
+- [x] Formulários com labels associados e erros acessíveis
+- [x] Nenhuma informação transmitida só por cor
+- [x] Zoom até 200% sem quebrar layout
+- [x] `lang="pt-BR"` no `html`
+- [x] Lighthouse Acessibilidade ≥ 90 (mediana das 3 execuções)
