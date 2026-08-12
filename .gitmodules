@@ -1,0 +1,15 @@
+[submodule "frontend"]
+	path = frontend
+	url = https://github.com/AcessibilidadeRodolfo/brinka-frontend.git
+[submodule "api"]
+	path = api
+	url = https://github.com/AcessibilidadeRodolfo/brinka-api.git
+[submodule "database"]
+	path = database
+	url = https://github.com/AcessibilidadeRodolfo/brinka-database.git
+[submodule "docs"]
+	path = docs
+	url = https://github.com/AcessibilidadeRodolfo/brinka-docs.git
+[submodule "pesquisa"]
+	path = pesquisa
+	url = https://github.com/AcessibilidadeRodolfo/pesquisa-acessibilidade-casos-reais-de-empresa-mesa-3.git
