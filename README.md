@@ -222,6 +222,7 @@ O projeto é dividido em componentes independentes, permitindo separar as respon
                          │      Frontend       │
                          │ HTML + CSS + JS     │
                          │    Vanilla JS       │
+                         │  (Render — Docker)  │
                          └──────────┬──────────┘
                                     │
                               HTTP / REST
@@ -231,6 +232,7 @@ O projeto é dividido em componentes independentes, permitindo separar as respon
                          │      Backend        │
                          │   Spring Boot      │
                          │      Java 21        │
+                         │  (Render — Docker)  │
                          └──────────┬──────────┘
                                     │
                    ┌────────────────┴────────────────┐
@@ -239,7 +241,7 @@ O projeto é dividido em componentes independentes, permitindo separar as respon
           ┌─────────────────┐              ┌─────────────────┐
           │   PostgreSQL    │              │      Redis      │
           │ Dados da        │              │ Carrinho        │
-          │ aplicação       │              │                 │
+          │ aplicação       │              │ (Render interno)│
           └─────────────────┘              └─────────────────┘
 
                                     │
@@ -322,15 +324,21 @@ Repositório contendo a pesquisa sobre casos reais de acessibilidade em empresas
 
 * API de consulta de CEP.
 
+## Infraestrutura e deploy
+
+* **Render** — hospedagem do frontend, do backend e do Redis;
+* **Docker** — frontend e backend publicados no Render a partir de `Dockerfile` próprio de cada repositório;
+* **Redis interno do Render** — instância privada, acessível apenas pelos serviços do próprio projeto no Render (sem exposição pública).
+
 ---
 
 # 🚀 Aplicação
 
-A aplicação será disponibilizada para acesso online através do **Render**.
+A aplicação está publicada no **Render**, com o frontend e o backend implantados via **Dockerfile** e o Redis provisionado como **serviço interno do Render** (utilizado exclusivamente pelo backend, sem acesso público).
 
-> O endereço público da aplicação será adicionado a esta seção após a conclusão do deploy.
-
-**Aplicação:** em implantação.
+* **Frontend:** [https://brinka-frontend.onrender.com](https://brinka-frontend.onrender.com)
+* **Backend / API:** [https://brinka-api.onrender.com](https://brinka-api.onrender.com)
+* **Redis:** instância interna do Render, provisionada junto ao backend e não acessível externamente.
 
 ---
 
@@ -347,6 +355,8 @@ Para executar o projeto localmente, é necessário possuir:
 * Python;
 * Navegador moderno;
 * Variáveis de ambiente configuradas no backend.
+
+> Em produção, o frontend e o backend são executados no **Render** a partir dos respectivos `Dockerfile`, e o Redis utilizado é uma **instância interna do Render**. As instruções abaixo descrevem apenas a execução local, sem Docker.
 
 ---
 
@@ -389,6 +399,8 @@ Execute os scripts necessários para:
 Certifique-se de que o Redis esteja instalado e executando localmente.
 
 O Redis é utilizado para persistência e gerenciamento do carrinho de compras.
+
+Em produção, o Redis é provisionado como **serviço interno do Render**, associado ao backend implantado via Docker.
 
 ---
 
@@ -433,6 +445,8 @@ Ou:
 
 A API ficará disponível na porta configurada pela aplicação.
 
+Em produção, o backend é publicado no **Render** a partir do `Dockerfile` do repositório `brinka-api`, disponível em: [https://brinka-api.onrender.com](https://brinka-api.onrender.com)
+
 ---
 
 ## 6. Executar o Frontend
@@ -458,6 +472,8 @@ http://localhost:5500
 ```
 
 Não é recomendado abrir o `index.html` diretamente pelo protocolo `file://`, pois a aplicação utiliza módulos JavaScript e comunicação com a API.
+
+Em produção, o frontend é publicado no **Render** a partir do `Dockerfile` do repositório `brinka-frontend`, disponível em: [https://brinka-frontend.onrender.com](https://brinka-frontend.onrender.com)
 
 ---
 
@@ -567,22 +583,22 @@ Usuários autenticados podem consultar seus pedidos realizados através da área
 
 # 🔌 Integração Frontend → Backend
 
-O frontend realiza requisições HTTP para a API desenvolvida em Spring Boot.
+O frontend (publicado no Render em [https://brinka-frontend.onrender.com](https://brinka-frontend.onrender.com)) realiza requisições HTTP para a API desenvolvida em Spring Boot, publicada no Render em [https://brinka-api.onrender.com](https://brinka-api.onrender.com).
 
 O fluxo principal é:
 
 ```text
 Usuário
    ↓
-Interface JavaScript
+Interface JavaScript (Render — Docker)
    ↓
 Fetch API
    ↓
-Spring Boot REST API
+Spring Boot REST API (Render — Docker)
    ↓
 Regras de negócio
    ↓
-PostgreSQL / Redis
+PostgreSQL / Redis interno (Render)
 ```
 
 O frontend não acessa diretamente o banco de dados.
@@ -632,7 +648,7 @@ Entre os dados persistidos estão informações relacionadas a:
 * Endereços;
 * Demais entidades necessárias ao funcionamento da aplicação.
 
-O Redis é utilizado para o gerenciamento e persistência do carrinho.
+O Redis é utilizado para o gerenciamento e persistência do carrinho, sendo provisionado em produção como **serviço interno do Render**, sem exposição pública, acessível apenas pelo backend.
 
 A modelagem e os scripts do banco estão disponíveis no repositório:
 
